@@ -47,9 +47,22 @@ public class Converter extends Application {
         secondaryCurrencyInput.setDisable(true);
         GridPane.setConstraints(secondaryCurrencyInput, 1, 1);
 
-        //Login
+        // Button
         Button getRatesButton = new Button("Get rate");
         GridPane.setConstraints(getRatesButton, 1, 2);
+
+        getRatesButton.setOnAction((event) -> {
+            // Button was clicked, do something...
+//            outputTextArea.appendText("Button Action\n");
+            System.out.println("Get rates clicked!");
+
+            Runnable downloadTask = () -> {
+                System.out.println("Executing download thread.");
+
+            };
+            Thread downloadThread1 = new Thread(downloadTask);
+            downloadThread1.run();
+        });
 
         //Add everything to grid
         grid.getChildren().addAll(primaryCurrencyLabel, primaryCurrencyInput, secondaryCurrencyLabel, secondaryCurrencyInput, getRatesButton);
