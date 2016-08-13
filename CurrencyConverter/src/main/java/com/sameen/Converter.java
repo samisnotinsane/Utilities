@@ -58,7 +58,8 @@ public class Converter extends Application {
 
             Runnable downloadTask = () -> {
                 System.out.println("Executing download thread.");
-
+                // invoke download methods
+                secondaryCurrencyInput.setText(DownloadTask.getEur());
             };
             Thread downloadThread1 = new Thread(downloadTask);
             downloadThread1.run();
