@@ -63,4 +63,12 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+
+    public static void saveText(String txtString) {
+
+
+        // save text string to selected file
+    }
+
 }

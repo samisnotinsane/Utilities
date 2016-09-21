@@ -24,6 +24,18 @@ public class Controller implements Initializable {
 
     public void onClickSave() {
         System.out.println("onClickSave() clicked");
+        String txtString = txtContent.getText();
+        System.out.println(txtString);
+
+        // invoke file save dialog
+        filePicker();
+
+        Main.saveText(txtString);
+
+    }
+
+    private void filePicker() {
+        
     }
 
     @Override
