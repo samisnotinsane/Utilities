@@ -1,29 +1,20 @@
-package sample;
+package security;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.input.DragEvent;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 
 public class View extends Application {
@@ -37,6 +28,9 @@ public class View extends Application {
     private TextArea txtDecrypt = new TextArea();
     private Label lblEncrypt = new Label("Input:");
     private Label lblDecrypt = new Label("Result:");
+
+    private Cipher cyp = null;
+    private String cipherText;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -83,7 +77,7 @@ public class View extends Application {
                     File openedFile = selectedFile.getAbsoluteFile();
                     String fileText = "";
                     try {
-                        fileText = readFileContents(openedFile);
+                        fileText = Utility.readFileContents(openedFile);
                         System.out.println(fileText);
                     } catch (IOException ex) {
                         ex.printStackTrace();
@@ -102,11 +96,25 @@ public class View extends Application {
         btnDecrypt.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 System.out.println("decrypting...");
+                if(cyp == null) {
+                    System.out.println("No input text to decrypt!");
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("No encrypted text was found for decryption! Please enter some text " +
+                    "or choose a file to decrypt, then click 'Encrypt'");
+                    alert.showAndWait();
+                } else {
+                    showTextInOutputArea(cyp.decrypt());
+                }
             }
         });
         btnEncrypt.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 System.out.println("encrypting...");
+                cyp = new Cipher(Cipher.CAESAR_TECHNIQUE);
+                cipherText = cyp.encrypt(getTextFromInputArea());
+                showTextInOutputArea(cipherText);
             }
         });
 
@@ -118,17 +126,12 @@ public class View extends Application {
         txtEncrypt.setText(text);
     }
 
-    private String readFileContents(File openedFile) throws IOException {
-        FileReader reader = new FileReader(openedFile);
-        BufferedReader br = new BufferedReader(reader);
-        String fullText = "";
-        String line = br.readLine();
-        while(line != null) {
-            fullText += line;
-            line = br.readLine();
-        }
+    private String getTextFromInputArea() {
+        return txtEncrypt.getText();
+    }
 
-        return fullText;
+    private void showTextInOutputArea(String text) {
+        txtDecrypt.setText(text);
     }
 
 
