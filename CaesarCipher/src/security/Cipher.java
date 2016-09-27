@@ -27,7 +27,15 @@ public class Cipher {
     }
 
     public String encrypt(String cipherText) {
+
         return null;
+    }
+
+    // shifts given char forward by 3 places
+    private char encode(char c) {
+        int charValue = ((int) c);
+        int transformedChar = charValue + 3;
+        return ((char) transformedChar);
     }
 
     public String decrypt() {
