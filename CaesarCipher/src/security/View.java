@@ -105,7 +105,7 @@ public class View extends Application {
                     "or choose a file to decrypt, then click 'Encrypt'");
                     alert.showAndWait();
                 } else {
-                    showTextInOutputArea(cyp.decrypt());
+                    showTextInOutputArea(cyp.decrypt(getTextFromInputArea()));
                 }
             }
         });
