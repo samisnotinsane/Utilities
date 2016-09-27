@@ -38,6 +38,13 @@ public class Cipher {
         return ((char) transformedChar);
     }
 
+    // inverse fn. of encode(c)
+    private char decode(char c) {
+        int charValue = ((int)c);
+        int inverseTransformedValue = charValue - 3;
+        return ((char)inverseTransformedValue);
+    }
+
     public String decrypt() {
         System.out.println("Decrypting CAESAR...");
         return "Decrypting CAESAR...";
