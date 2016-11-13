@@ -2,6 +2,12 @@ package main.java.core;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.util.*;
+import java.util.List;
 
 /**
  * Created by sameen on 11/11/2016.
@@ -22,18 +28,21 @@ public class FileCopyTool extends JFrame {
         panel.setLayout(layout);
         layout.setAlignment(FlowLayout.TRAILING);
 
-        lblSrc = new JLabel("Source:");
-        lblDest = new JLabel("Destination:");
-        txtSrcPath = new JTextArea();
-        txtDestPath = new JTextArea();
+        lblSrc = new JLabel("Source folder:");
+        lblDest = new JLabel("Destination folder:");
+        txtSrcPath = new JTextArea(0, 20);
+        txtDestPath = new JTextArea(0, 20);
         btnCopy = new JButton("Copy");
+        btnCopy.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                startCopy();
+            }
+        });
+
         progressBar = new JProgressBar();
 
         txtSrcPath.setSize(new Dimension(50, 0));
         txtDestPath.setSize(new Dimension(50, 0));
-
-        txtSrcPath.setText("path...      ");
-        txtDestPath.setText("path...      ");
 
         panel.add(lblSrc);
         panel.add(txtSrcPath);
@@ -49,6 +58,27 @@ public class FileCopyTool extends JFrame {
         frame.setTitle("Copying Tool");
         frame.pack();
         frame.setVisible(true);
+    }
+
+
+    public void startCopy() {
+        SwingWorker<Boolean, Double> worker = new SwingWorker<Boolean, Double>() {
+            @Override
+            protected Boolean doInBackground() throws Exception {
+                return null;
+            }
+
+            @Override
+            protected void process(List<Double> chunks) {
+
+            }
+
+            @Override
+            protected void done() {
+
+            }
+        };
+        worker.execute();
     }
 
 

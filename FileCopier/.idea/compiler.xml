@@ -18,5 +18,8 @@
         <processorPath useClasspath="true" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="FileCopier" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>
